@@ -18,19 +18,28 @@ class EmployeePayrollData {
         return this._name;
     }
     set name(name) {
+        let nameRegex = RegExp('[A-Z]{1}[a-z]{2,}');
+        if (nameRegex.test(name))
         this._name = name;
+        else throw "Name is Incorrect";
     }
 
+    // Method
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const empDate = this.startDate == undefined ? "undefined" : this.startDate.toLocaleDateString("en-In", options);
+        const empDate = this.startDate == undefined ? "undefined" : 
+        this.startDate.toLocaleDateString("en-In", options);
         return "Id = " + this.id + " Name = " + this.name + " Salary = " + this.salary + " Gender = " + this.gender + " Start Date : " + empDate;
     }
 }
 
-let employeePayrollData = new EmployeePayrollData(1, "Bill", 30000);
+let employeePayrollData = new EmployeePayrollData(1, "Mark", 30000);
 console.log(employeePayrollData.toString());
+try {
 employeePayrollData.name = "John";
 console.log(employeePayrollData.toString());
-let newEmployeePayrollData = new EmployeePayrollData(1, "Terisa", 50000, "F", new Date());
+} catch (e) {
+        console.error(e);
+}
+let newEmployeePayrollData = new EmployeePayrollData(1, "Terisa", 30000, "F", new Date());
 console.log(newEmployeePayrollData.toString());
